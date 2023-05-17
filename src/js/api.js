@@ -14,7 +14,6 @@ export default class SearchPhotos {
   #totalHits = 0;
   #page = 1;
   #per_page = 40;
-  #hits = 0;
 
   async getPhotos() {
     const url = `${BASE_URL}?${API_KEY}&q=${this.#query}&page=${
@@ -59,7 +58,7 @@ export default class SearchPhotos {
   }
 
   calculateTotalpages() {
-    this.#totalPages = Math.ceil(this.#totalHits / this.per_page);
+    this.#totalPages = Math.ceil(this.#totalHits / this.#per_page);
   }
 
   get totalPages() {

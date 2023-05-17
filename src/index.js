@@ -12,6 +12,3 @@ const options = {
   rootMargin: '100px',
   threshold: 1,
 };
-
-searchPhotos.query = 'nature';
-searchPhotos.getPhotos();
