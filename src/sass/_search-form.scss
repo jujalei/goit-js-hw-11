@@ -35,3 +35,20 @@
 
   border-radius: 0 10px 10px 0;
 }
+
+.info-item_likes::before {
+  content: url(/src/images/likes.svg);
+  display: block;
+}
+.info-item_views::before {
+  content: url(/src/images/views.svg);
+  display: block;
+}
+.info-item_comments::before {
+  content: url(/src/images/comments.svg);
+  display: block;
+}
+.info-item_downloads::before {
+  content: url(/src/images/download.svg);
+  display: block;
+}

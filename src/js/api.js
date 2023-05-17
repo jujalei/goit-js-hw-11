@@ -8,12 +8,12 @@ const DEFAULT_PARAMS = new URLSearchParams({
   safesearch: true,
 });
 
-export default class SearchPhotos {
+export default class SearchPhotosAPI {
   #query = '';
   #totalPages = 0;
   #totalHits = 0;
   #page = 1;
-  #per_page = 40;
+  #per_page = 39;
 
   async getPhotos() {
     const url = `${BASE_URL}?${API_KEY}&q=${this.#query}&page=${
@@ -45,7 +45,7 @@ export default class SearchPhotos {
     this.#page += 1;
   }
 
-  clearPage() {
+  resetPage() {
     this.#page = 1;
   }
 
@@ -57,7 +57,7 @@ export default class SearchPhotos {
     return this.#totalHits;
   }
 
-  calculateTotalpages() {
+  calculateTotalPages() {
     this.#totalPages = Math.ceil(this.#totalHits / this.#per_page);
   }
 

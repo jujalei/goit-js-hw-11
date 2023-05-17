@@ -1,16 +1,11 @@
 import Notiflix from 'notiflix';
+
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { refs } from './js/refs';
-import SearchPhotos from './js/api';
+import SearchPhotosAPI from './js/api';
+import { createMarkup, addMarkup } from './js/markup';
 
-const searchPhotos = new SearchPhotos();
-
-const options = {
-  root: null,
-  rootMargin: '100px',
-  threshold: 1,
-};
-
-searchPhotos.getPhotos('cat');
+const searchPhotosAPI = new SearchPhotosAPI();
+export const lightbox = new SimpleLightbox('.photo-card a');
