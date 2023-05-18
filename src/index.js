@@ -6,8 +6,13 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { refs } from './js/refs';
 import SearchPhotosAPI from './js/api';
 import { createMarkup, addMarkup } from './js/markup';
+import LoadMoreBtn from './js/LoadMoreBtn';
 
 const searchPhotosAPI = new SearchPhotosAPI();
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '#loadMore',
+  isHidden: true,
+});
 
 export const lightbox = new SimpleLightbox('.photo-card a');
 
@@ -56,6 +61,37 @@ async function onFormSubmit(evt) {
   } catch (error) {
     Notiflix.Notify.failure(error.message, 'Oops...something wrong');
     clearPage();
+  }
+}
+
+function fetchNextPage() {
+  loadMoreBtn.disable();
+
+  searchPhotosAPI.nextPage();
+
+  searchPhotosAPI
+    .getPhotos()
+    .then(data => {
+      const markup = createMarkup(data);
+      addMarkup(markup);
+      loadMoreBtn.enable();
+      checkLoadMoreButtonVisibility();
+    })
+    .catch(error => {
+      Notiflix.Notify.failure(error.message, 'Oops...something wrong');
+      clearPage();
+      loadMoreBtn.enable();
+    });
+}
+
+function checkLoadMoreButtonVisibility() {
+  const { totalHits, currentPage, perPage } = searchPhotosAPI;
+  const totalLoadedImagesCount = currentPage * perPage;
+
+  if (totalLoadedImagesCount < totalHits) {
+    loadMoreBtn.enable();
+  } else {
+    loadMoreBtn.end();
   }
 }
 
