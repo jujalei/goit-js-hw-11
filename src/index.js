@@ -7,6 +7,7 @@ import { refs } from './js/refs';
 import SearchPhotosAPI from './js/api';
 import { createMarkup, addMarkup } from './js/markup';
 import LoadMoreBtn from './js/LoadMoreBtn';
+import { trackScroll, goTop } from './js/go-top-btn';
 
 const searchPhotosAPI = new SearchPhotosAPI();
 const loadMoreBtn = new LoadMoreBtn({
@@ -18,6 +19,8 @@ export const lightbox = new SimpleLightbox('.photo-card a');
 
 refs.form.addEventListener('submit', onFormSubmit);
 loadMoreBtn.button.addEventListener('click', fetchNextPage);
+refs.goTopBtn.addEventListener('click', goTop);
+window.addEventListener('scroll', trackScroll);
 
 async function onFormSubmit(evt) {
   evt.preventDefault();
